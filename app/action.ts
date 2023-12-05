@@ -1,6 +1,6 @@
 "use server"
 
-export const fetchMovies = async () => {
+export const fetchMovies = async (page: number) => {
     const options = {
         method: 'GET',
         headers: {
@@ -9,14 +9,14 @@ export const fetchMovies = async () => {
         }
       };
     
-      const res = await fetch('https://api.themoviedb.org/3/movie/popular?language=en-US&page=1', options);
+      const res = await fetch(`https://api.themoviedb.org/3/movie/popular?language=en-US&page=${page}&limit=2`, options);
       const data = await res.json();
     
       if (!data) {
         console.log(data)
       }
 
-      console.log(data)
+      //console.log(data)
 
       return data
 }
