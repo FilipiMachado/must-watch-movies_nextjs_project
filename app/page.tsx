@@ -1,4 +1,3 @@
-import MovieCard, { MovieProp } from "@/components/MovieCard";
 import LoadMore from "@/components/LoadMore";
 
 import { fetchMovies } from "./action";

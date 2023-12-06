@@ -12,7 +12,7 @@ export const fetchMovies = async (page: number) => {
   };
 
   const res = await fetch(
-    `https://api.themoviedb.org/3/movie/popular?language=en-US&page=${page}&limit=2`,
+    `https://api.themoviedb.org/3/movie/popular?language=en-US&page=${page}`,
     options
   );
   const data = await res.json();
@@ -20,8 +20,6 @@ export const fetchMovies = async (page: number) => {
   if (!data) {
     console.log(data);
   }
-
-  //console.log(data)
 
   return data.results.map((item: MovieProp, index: number) => (
     <MovieCard key={item.id} movie={item} index={index} />

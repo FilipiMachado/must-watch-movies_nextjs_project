@@ -8,7 +8,7 @@ import MovieCard from "./MovieCard";
 
 let page = 2;
 
-export type MovieCard = JSX.Element
+export type MovieCard = JSX.Element;
 
 function LoadMore() {
   const { ref, inView } = useInView();
