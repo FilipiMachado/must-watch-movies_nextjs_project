@@ -1,5 +1,7 @@
 import Image from "next/image";
 
+import { MotionDiv } from "@/components/MotionDiv";
+
 export interface MovieProp {
   id: string;
   title: string;
@@ -14,13 +16,29 @@ interface Prop {
   index: number;
 }
 
-function MovieCard({ movie }: Prop) {
+const variants = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1 },
+};
+
+function MovieCard({ movie, index }: Prop) {
   function formatVoteAverage(voteAverage: number) {
     return parseFloat(voteAverage.toFixed(1));
   }
 
   return (
-    <div className="max-w-sm rounded relative w-full">
+    <MotionDiv
+      variants={variants}
+      initial="hidden"
+      animate="visible"
+      transition={{
+        delay: index * 0.25,
+        ease: "easeInOut",
+        duration: 0.5,
+      }}
+      viewport={{ amount: 0 }}
+      className="max-w-sm rounded relative w-full"
+    >
       <div className="relative w-full h-[40vh]">
         <Image
           src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
@@ -67,7 +85,7 @@ function MovieCard({ movie }: Prop) {
           </div>
         </div>
       </div>
-    </div>
+    </MotionDiv>
   );
 }
 
