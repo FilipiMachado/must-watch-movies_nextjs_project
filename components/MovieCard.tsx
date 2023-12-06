@@ -23,7 +23,7 @@ function MovieCard({ movie }: Prop) {
     <div className="max-w-sm rounded relative w-full">
       <div className="relative w-full h-[40vh]">
         <Image
-          src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
+          src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
           alt={movie.title}
           fill
           className="rounded-xl cursor-pointer"
