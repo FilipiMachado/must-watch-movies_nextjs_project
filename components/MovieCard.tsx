@@ -1,6 +1,7 @@
 import Image from "next/image";
 
 import { MotionDiv } from "@/components/MotionDiv";
+import ImageDiv from "@/components/ImageDiv";
 
 export interface MovieProp {
   id: string;
@@ -39,14 +40,7 @@ function MovieCard({ movie, index }: Prop) {
       viewport={{ amount: 0 }}
       className="max-w-sm rounded relative w-full"
     >
-      <div className="relative w-full h-[40vh]">
-        <Image
-          src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-          alt={movie.title}
-          fill
-          className="rounded-xl cursor-pointer"
-        />
-      </div>
+      <ImageDiv movie={{...movie, id: Number(movie.id)}}/>
       <div className="py-4 flex flex-col gap-3">
         <div className="flex justify-between items-center gap-1">
           <h2 className="font-bold text-white text-xl line-clamp-1 w-full">
