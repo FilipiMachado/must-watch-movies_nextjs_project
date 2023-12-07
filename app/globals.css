@@ -7,7 +7,7 @@ body {
 }
 
 .red-gradient {
-  background: linear-gradient(92deg, #8b5cf6 2.87%, #9333ea 96.18%);
+  background: linear-gradient(92deg, #f43f5e 17.87%, #ef4444 81.18%);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;

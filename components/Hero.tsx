@@ -5,19 +5,27 @@ function Hero() {
     <header className="bg-hero bg-center bg-cover bg-no-repeat sm:p-16 py-16 px-8 flex justify-center lg:items-center max-lg:flex-col w-full sm:gap-16 gap-0">
       <div className="flex-1 flex flex-col gap-10">
         <Image
-          src="./logo.svg"
+          src="./movie-logo.svg"
           alt="logo"
           width={101}
           height={96}
-          className="object-contain"
+          className="object-contain rounded-full"
         />
         <h1 className="sm:text-6xl text-5xl text-white lg:max-w-lg font-bold leading-[120%]">
-          Explore The <span className="red-gradient">Universe <br /></span> of
-          Movies
+          Explore The{" "}
+          <span className="red-gradient">
+            Universe <br />
+          </span>{" "}
+          of Movies
         </h1>
       </div>
       <div className="lg:flex-1 relative w-full h-[50vh] justify-center">
-        <Image src="/anime.png" alt="anime" fill className="object-contain" />
+        <Image
+          src="/movie.png"
+          alt="anime"
+          fill
+          className="object-contain opacity-80"
+        />
       </div>
     </header>
   );
