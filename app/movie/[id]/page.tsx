@@ -1,45 +1,68 @@
 "use client";
 
-import axios from "axios";
+import { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
 
+interface MovieIdPageProps {
+  title: string;
+  overview: string;
+  backdrop_path: string;
+  poster_path: string;
+}
+
 export default function MovieIdPage() {
+  const [movieInfo, setMovieInfo] = useState<MovieIdPageProps>({
+    title: "",
+    overview: "",
+    backdrop_path: "",
+    poster_path: "",
+  });
   const params = useParams();
 
-  const options = {
-    method: 'GET',
-    headers: {
-      accept: 'application/json',
-      Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkMzQ2MDlmZDFhNzgyMzcyZjE1MGM0MGFkODQ2MTZkZiIsInN1YiI6IjYwZTRiOGE3ODNlZTY3MDA3NGMxM2JiZiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.SG4-z0rE2UK7HpvbFJ68F1Ym5u1nRdX9Lx8YvX2WWgo'
-    }
-  };
+  useEffect(() => {
+    const options = {
+      method: "GET",
+      headers: {
+        accept: "application/json",
+        Authorization:
+          "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkMzQ2MDlmZDFhNzgyMzcyZjE1MGM0MGFkODQ2MTZkZiIsInN1YiI6IjYwZTRiOGE3ODNlZTY3MDA3NGMxM2JiZiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.SG4-z0rE2UK7HpvbFJ68F1Ym5u1nRdX9Lx8YvX2WWgo",
+      },
+    };
 
-  fetch(
-    `https://api.themoviedb.org/3/movie/${params.id}?language=en-US`,
-    options
-  )
-    .then((response) => response.json())
-    .then((response) => {
-      console.log(response)
-    })
-    .catch((err) => console.error(err));
+    fetch(
+      `https://api.themoviedb.org/3/movie/${params.id}?language=en-US`,
+      options
+    )
+      .then((response) => response.json())
+      .then((response) => {
+        setMovieInfo(response);
+        console.log(movieInfo);
+      })
+      .catch((err) => console.error(err));
+  }, [params.id]);
 
+  console.log(movieInfo);
   return (
     <div className="sm:p-16 py-16 px-8 gap-10">
-      <div className="flex justify-between h-[80vh]">
-        <div className="w-[40vw] bg-slate-500/50 rounded-l-lg">
-          <p>BACKGROUND IMAGE</p>
-        </div>
-        <div className="w-[60vw] py-28 p-6 bg-gray-400 rounded-r-lg">
+      <div
+        style={{
+          backgroundImage: `url(https://image.tmdb.org/t/p/original/${movieInfo.backdrop_path})`,
+          backgroundSize: "cover",
+        }}
+        className="flex justify-between h-[80vh] rounded-lg"
+      >
+        <div
+          style={{
+            backgroundImage: `url(https://image.tmdb.org/t/p/original/${movieInfo.poster_path})`,
+            backgroundSize: "cover",
+          }}
+          className="w-[40vw] bg-slate-500/50 rounded-l-lg"
+        ></div>
+        <div className="w-[60vw] py-32 p-6 bg-gray-800/90 rounded-r-lg">
           <div className="mb-20">
-            <p className="mb-8 text-4xl">Movie Title</p>
-            <p className="font-bold text-md mb-2">SYNOPSIS</p>
-            <p>
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Beatae
-              distinctio, repellat sapiente rerum asperiores ullam voluptatum
-              placeat ut, vero deserunt odio ipsum maiores. Optio fugiat
-              aspernatur, quis illum eaque saepe.
-            </p>
+            <p className="mb-8 text-4xl">{movieInfo.title}</p>
+            <p className="font-bold text-md mb-2">OVERVIEW:</p>
+            <p>{movieInfo.overview}</p>
           </div>
           <div className="flex mb-20 w-64 justify-between">
             <div>
