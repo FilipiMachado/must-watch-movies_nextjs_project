@@ -1,7 +1,9 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useParams } from "next/navigation";
+import { useParams, useRouter  } from "next/navigation";
+
+import { ChevronLeftCircle } from "lucide-react";
 
 interface MovieIdPageProps {
   title: string;
@@ -11,13 +13,15 @@ interface MovieIdPageProps {
 }
 
 export default function MovieIdPage() {
+  const params = useParams();
+  const router = useRouter();
+
   const [movieInfo, setMovieInfo] = useState<MovieIdPageProps>({
     title: "",
     overview: "",
     backdrop_path: "",
     poster_path: "",
   });
-  const params = useParams();
 
   useEffect(() => {
     const options = {
@@ -36,12 +40,17 @@ export default function MovieIdPage() {
       .then((response) => response.json())
       .then((response) => {
         setMovieInfo(response);
-        console.log(movieInfo);
       })
       .catch((err) => console.error(err));
   }, [params.id]);
 
+  function gotToHomePage() {
+    console.log("Ta indo! Confia!")
+    router.push("/")
+  }
+
   console.log(movieInfo);
+
   return (
     <div className="sm:p-16 py-16 px-8 gap-10">
       <div
@@ -56,9 +65,12 @@ export default function MovieIdPage() {
             backgroundImage: `url(https://image.tmdb.org/t/p/original/${movieInfo.poster_path})`,
             backgroundSize: "cover",
           }}
-          className="w-[40vw] bg-slate-500/50 rounded-l-lg"
+          className="w-[40vw] rounded-l-lg"
         ></div>
         <div className="w-[60vw] py-32 p-6 bg-gray-800/90 rounded-r-lg">
+          <div className="flex justify-end relative -top-28">
+            <ChevronLeftCircle onClick={() => gotToHomePage()} className="cursor-pointer" size={40}/>
+          </div>
           <div className="mb-20">
             <p className="mb-8 text-4xl">{movieInfo.title}</p>
             <p className="font-bold text-md mb-2">OVERVIEW:</p>

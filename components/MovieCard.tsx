@@ -1,5 +1,7 @@
 import Image from "next/image";
 
+import { formatVoteAverage } from "./utils/FormatVoteAverage";
+
 import { MotionDiv } from "@/components/MotionDiv";
 import ImageDiv from "@/components/ImageDiv";
 
@@ -23,9 +25,6 @@ const variants = {
 };
 
 function MovieCard({ movie, index }: Prop) {
-  function formatVoteAverage(voteAverage: number) {
-    return parseFloat(voteAverage.toFixed(1));
-  }
 
   return (
     <MotionDiv
@@ -40,7 +39,7 @@ function MovieCard({ movie, index }: Prop) {
       viewport={{ amount: 0 }}
       className="max-w-sm rounded relative w-full"
     >
-      <ImageDiv movie={{...movie, id: Number(movie.id)}}/>
+      <ImageDiv movie={{ ...movie, id: Number(movie.id) }} />
       <div className="py-4 flex flex-col gap-3">
         <div className="flex justify-between items-center gap-1">
           <h2 className="font-bold text-white text-xl line-clamp-1 w-full">

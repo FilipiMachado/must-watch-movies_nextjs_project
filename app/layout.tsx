@@ -17,8 +17,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={dmSans.className}>
-        <main className="max-w-7xl mx-auto bg-[#0F1117]">{children}</main>
+      <body  className={dmSans.className + "bg-[#0F1117]"}>
+        <main className="max-w-7xl mx-auto ">{children}</main>
       </body>
     </html>
   );
