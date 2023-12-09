@@ -1,6 +1,7 @@
 import Image from "next/image";
 
 import { formatVoteAverage } from "./utils/FormatVoteAverage";
+import { formatDate } from "./utils/FormatDate";
 
 import { MotionDiv } from "@/components/MotionDiv";
 import ImageDiv from "@/components/ImageDiv";
@@ -61,7 +62,7 @@ function MovieCard({ movie, index }: Prop) {
               className="object-contain"
             />
             <p className="text-base text-white font-bold">
-              {movie.release_date}
+              {formatDate(movie.release_date)}
             </p>
           </div>
           <div className="flex flex-row gap-2 items-center">
