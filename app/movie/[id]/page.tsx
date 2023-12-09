@@ -23,6 +23,7 @@ interface MovieIdPageProps {
 export default function MovieIdPage() {
   const params = useParams();
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
 
   const [movieInfo, setMovieInfo] = useState<MovieIdPageProps>({
     title: "",
@@ -37,6 +38,16 @@ export default function MovieIdPage() {
   });
 
   useEffect(() => {
+    setIsLoading(true);
+    let backdropLoaded = false;
+    let posterLoaded = false;
+
+    const checkAllImagesLoaded = () => {
+      if (backdropLoaded && posterLoaded) {
+        setIsLoading(false);
+      }
+    };
+
     const options = {
       method: "GET",
       headers: {
@@ -53,8 +64,27 @@ export default function MovieIdPage() {
       .then((response) => response.json())
       .then((response) => {
         setMovieInfo(response);
+
+        // Create new image object for backdrop
+        const backdropImage = new Image();
+        backdropImage.src = `https://image.tmdb.org/t/p/original/${response.backdrop_path}`;
+        backdropImage.onload = () => {
+          backdropLoaded = true;
+          checkAllImagesLoaded();
+        };
+
+        // Create new image object for poster
+        const posterImage = new Image();
+        posterImage.src = `https://image.tmdb.org/t/p/original/${response.poster_path}`;
+        posterImage.onload = () => {
+          posterLoaded = true;
+          checkAllImagesLoaded();
+        };
       })
-      .catch((err) => console.error(err));
+      .catch((err) => {
+        console.error(err);
+        setIsLoading(false);
+      });
   }, [params.id]);
 
   function gotToHomePage() {
@@ -65,60 +95,74 @@ export default function MovieIdPage() {
   console.log(movieInfo);
 
   return (
-    <div className="sm:p-16 py-16 px-8 gap-10">
-      <div
-        style={{
-          backgroundImage: `url(https://image.tmdb.org/t/p/original/${movieInfo.backdrop_path})`,
-          backgroundSize: "cover",
-        }}
-        className="flex justify-between h-[80vh] rounded-lg"
-      >
-        <div
-          style={{
-            backgroundImage: `url(https://image.tmdb.org/t/p/original/${movieInfo.poster_path})`,
-            backgroundSize: "cover",
-          }}
-          className="w-[40vw] rounded-l-lg"
-        ></div>
-        <div className="w-[60vw] py-32 p-6 bg-gray-800/90 rounded-r-lg">
-          <div className="flex justify-end relative -top-28">
-            <ChevronLeftCircle
-              onClick={() => gotToHomePage()}
-              className="cursor-pointer hover:text-gray-400 transition"
-              size={40}
-            />
-          </div>
-          <div className="mb-20">
-            <p className="mb-8 text-4xl">{movieInfo.title}</p>
-            <p className="font-bold text-md mb-2">OVERVIEW:</p>
-            <p>{movieInfo.overview}</p>
-          </div>
-          <div className="flex mb-20">
-            <div className="mr-28">
-              <p className="font-bold">RATING</p>
-              <p>{formatVoteAverage(movieInfo.vote_average)}</p>
-            </div>
-            <div>
-              <p className="font-bold">RELEASE DATE</p>
-              <p>{formatDate(movieInfo.release_date)}</p>
-            </div>
-          </div>
-          <div className="flex">
-            <div className="mr-20">
-              <p className="font-bold">RUNTIME</p>
-              <p>{movieInfo.runtime} Minutes</p>
-            </div>
-            <div className="mr-20 left-1 relative">
-              <p className="font-bold">BUDGET</p>
-              <p>{movieInfo.budget === 0 ? "-" : formatCurrency(movieInfo.budget)}</p>
-            </div>
-            <div>
-              <p className="font-bold">REVENUE</p>
-              <p>{movieInfo.revenue === 0 ? "-" : formatCurrency(movieInfo.revenue)}</p>
+    <div>
+      {isLoading && movieInfo ? (
+        <div>Loading</div>
+      ) : (
+        <div className="sm:p-16 py-16 px-8 gap-10">
+          <div
+            style={{
+              backgroundImage: `url(https://image.tmdb.org/t/p/original/${movieInfo.backdrop_path})`,
+              backgroundSize: "cover",
+            }}
+            className="flex justify-between h-[80vh] rounded-lg"
+          >
+            <div
+              style={{
+                backgroundImage: `url(https://image.tmdb.org/t/p/original/${movieInfo.poster_path})`,
+                backgroundSize: "cover",
+              }}
+              className="w-[40vw] rounded-l-lg"
+            ></div>
+            <div className="w-[60vw] py-32 p-6 bg-gray-800/90 rounded-r-lg">
+              <div className="flex justify-end relative -top-28">
+                <ChevronLeftCircle
+                  onClick={() => gotToHomePage()}
+                  className="cursor-pointer hover:text-gray-400 transition"
+                  size={40}
+                />
+              </div>
+              <div className="mb-20">
+                <p className="mb-8 text-4xl">{movieInfo.title}</p>
+                <p className="font-bold text-md mb-2">OVERVIEW:</p>
+                <p>{movieInfo.overview}</p>
+              </div>
+              <div className="flex mb-20">
+                <div className="mr-28">
+                  <p className="font-bold">RATING</p>
+                  <p>{formatVoteAverage(movieInfo.vote_average)}</p>
+                </div>
+                <div>
+                  <p className="font-bold">RELEASE DATE</p>
+                  <p>{formatDate(movieInfo.release_date)}</p>
+                </div>
+              </div>
+              <div className="flex">
+                <div className="mr-20">
+                  <p className="font-bold">RUNTIME</p>
+                  <p>{movieInfo.runtime} Minutes</p>
+                </div>
+                <div className="mr-20 left-1 relative">
+                  <p className="font-bold">BUDGET</p>
+                  <p>
+                    {movieInfo.budget === 0
+                      ? "-"
+                      : formatCurrency(movieInfo.budget)}
+                  </p>
+                </div>
+                <div>
+                  <p className="font-bold">REVENUE</p>
+                  <p>
+                    {movieInfo.revenue === 0
+                      ? "-"
+                      : formatCurrency(movieInfo.revenue)}
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }
