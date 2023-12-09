@@ -30,7 +30,7 @@ const ImageDiv = ({ movie }: ImageDivProps) => {
         src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
         alt={movie.title}
         fill
-        className="rounded-xl cursor-pointer"
+        className="rounded-xl cursor-pointer transform transition-transform duration-500 hover:scale-110"
       />
     </div>
   );

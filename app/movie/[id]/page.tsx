@@ -1,7 +1,10 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useParams, useRouter  } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
+import { formatVoteAverage } from "@/components/utils/FormatVoteAverage";
+import { formatDate } from "@/components/utils/FormatDate";
+import { formatCurrency } from "@/components/utils/FormatCurrency";
 
 import { ChevronLeftCircle } from "lucide-react";
 
@@ -10,6 +13,11 @@ interface MovieIdPageProps {
   overview: string;
   backdrop_path: string;
   poster_path: string;
+  vote_average: number;
+  release_date: string;
+  runtime: number;
+  budget: number;
+  revenue: number;
 }
 
 export default function MovieIdPage() {
@@ -21,6 +29,11 @@ export default function MovieIdPage() {
     overview: "",
     backdrop_path: "",
     poster_path: "",
+    vote_average: 0,
+    release_date: "",
+    runtime: 0,
+    budget: 0,
+    revenue: 0,
   });
 
   useEffect(() => {
@@ -45,8 +58,8 @@ export default function MovieIdPage() {
   }, [params.id]);
 
   function gotToHomePage() {
-    console.log("Ta indo! Confia!")
-    router.push("/")
+    console.log("Ta indo! Confia!");
+    router.push("/");
   }
 
   console.log(movieInfo);
@@ -69,7 +82,11 @@ export default function MovieIdPage() {
         ></div>
         <div className="w-[60vw] py-32 p-6 bg-gray-800/90 rounded-r-lg">
           <div className="flex justify-end relative -top-28">
-            <ChevronLeftCircle onClick={() => gotToHomePage()} className="cursor-pointer" size={40}/>
+            <ChevronLeftCircle
+              onClick={() => gotToHomePage()}
+              className="cursor-pointer hover:text-gray-400 transition"
+              size={40}
+            />
           </div>
           <div className="mb-20">
             <p className="mb-8 text-4xl">{movieInfo.title}</p>
@@ -79,25 +96,25 @@ export default function MovieIdPage() {
           <div className="flex mb-20 w-64 justify-between">
             <div>
               <p className="font-bold">RATING</p>
-              <p>8.0</p>
+              <p>{formatVoteAverage(movieInfo.vote_average)}</p>
             </div>
             <div>
               <p className="font-bold">RELEASE DATE</p>
-              <p>01/01/2023</p>
+              <p>{formatDate(movieInfo.release_date)}</p>
             </div>
           </div>
           <div className="flex w-96 justify-between">
             <div>
               <p className="font-bold">RUNTIME</p>
-              <p>2:45h</p>
+              <p>{movieInfo.runtime} Minutes</p>
             </div>
             <div>
               <p className="font-bold">BUDGET</p>
-              <p>$500.000</p>
+              <p>{formatCurrency(movieInfo.budget)}</p>
             </div>
             <div>
               <p className="font-bold">REVENUE</p>
-              <p>$1.000.000</p>
+              <p>{formatCurrency(movieInfo.revenue)}</p>
             </div>
           </div>
         </div>

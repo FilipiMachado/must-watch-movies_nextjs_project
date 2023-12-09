@@ -26,7 +26,6 @@ const variants = {
 };
 
 function MovieCard({ movie, index }: Prop) {
-
   return (
     <MotionDiv
       variants={variants}
