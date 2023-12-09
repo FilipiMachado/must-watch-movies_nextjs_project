@@ -93,8 +93,8 @@ export default function MovieIdPage() {
             <p className="font-bold text-md mb-2">OVERVIEW:</p>
             <p>{movieInfo.overview}</p>
           </div>
-          <div className="flex mb-20 w-64 justify-between">
-            <div>
+          <div className="flex mb-20">
+            <div className="mr-28">
               <p className="font-bold">RATING</p>
               <p>{formatVoteAverage(movieInfo.vote_average)}</p>
             </div>
@@ -103,18 +103,18 @@ export default function MovieIdPage() {
               <p>{formatDate(movieInfo.release_date)}</p>
             </div>
           </div>
-          <div className="flex w-96 justify-between">
-            <div>
+          <div className="flex">
+            <div className="mr-20">
               <p className="font-bold">RUNTIME</p>
               <p>{movieInfo.runtime} Minutes</p>
             </div>
-            <div>
+            <div className="mr-20 left-1 relative">
               <p className="font-bold">BUDGET</p>
-              <p>{formatCurrency(movieInfo.budget)}</p>
+              <p>{movieInfo.budget === 0 ? "-" : formatCurrency(movieInfo.budget)}</p>
             </div>
             <div>
               <p className="font-bold">REVENUE</p>
-              <p>{formatCurrency(movieInfo.revenue)}</p>
+              <p>{movieInfo.revenue === 0 ? "-" : formatCurrency(movieInfo.revenue)}</p>
             </div>
           </div>
         </div>
