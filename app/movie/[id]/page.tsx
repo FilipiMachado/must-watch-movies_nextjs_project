@@ -6,7 +6,7 @@ import { formatVoteAverage } from "@/components/utils/FormatVoteAverage";
 import { formatDate } from "@/components/utils/FormatDate";
 import { formatCurrency } from "@/components/utils/FormatCurrency";
 
-import { ChevronLeftCircle } from "lucide-react";
+import { ChevronLeftCircle, Loader2 } from "lucide-react";
 
 interface MovieIdPageProps {
   title: string;
@@ -97,7 +97,9 @@ export default function MovieIdPage() {
   return (
     <div>
       {isLoading && movieInfo ? (
-        <div>Loading</div>
+        <div className="flex justify-center items-center h-screen">
+          <Loader2 className="h-10 w-10 text-white animate-spin" />
+        </div>
       ) : (
         <div className="sm:p-16 py-16 px-8 gap-10">
           <div
