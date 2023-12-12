@@ -23,7 +23,7 @@ const ImageDiv = ({ movie }: ImageDivProps) => {
 
   return (
     <div
-      className="relative w-full h-[40vh]"
+      className="relative h-[50vh] lg:w-full lg:h-[36vh]"
       onClick={() => goToSingleMoviePage(movie.id)}
     >
       <Image
