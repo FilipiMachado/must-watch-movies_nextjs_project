@@ -101,7 +101,7 @@ export default function MovieIdPage() {
           <Loader2 className="h-10 w-10 text-white animate-spin" />
         </div>
       ) : (
-        <div className="sm:p-16 py-16 px-8 gap-10">
+        <div className="container flex-row py-16 px-8 gap-10">
           <div
             style={{
               backgroundImage: `url(https://image.tmdb.org/t/p/original/${movieInfo.backdrop_path})`,
@@ -129,8 +129,8 @@ export default function MovieIdPage() {
                 <p className="font-bold text-md mb-2">OVERVIEW:</p>
                 <p>{movieInfo.overview}</p>
               </div>
-              <div className="flex mb-20">
-                <div className="mr-28">
+              <div className="lg:flex-row md:flex lg:mb-20 md:mb-2 w-[288px] justify-between">
+                <div>
                   <p className="font-bold">RATING</p>
                   <p>{formatVoteAverage(movieInfo.vote_average)}</p>
                 </div>
@@ -139,12 +139,12 @@ export default function MovieIdPage() {
                   <p>{formatDate(movieInfo.release_date)}</p>
                 </div>
               </div>
-              <div className="flex">
-                <div className="mr-20">
+              <div className="lg:flex-row md:flex lg:mb-20 md:mb-2 w-[500px] justify-between">
+                <div>
                   <p className="font-bold">RUNTIME</p>
                   <p>{movieInfo.runtime} Minutes</p>
                 </div>
-                <div className="mr-20 left-1 relative">
+                <div>
                   <p className="font-bold">BUDGET</p>
                   <p>
                     {movieInfo.budget === 0
