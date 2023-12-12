@@ -101,33 +101,33 @@ export default function MovieIdPage() {
           <Loader2 className="h-10 w-10 text-white animate-spin" />
         </div>
       ) : (
-        <div className="container flex-row py-16 px-8 gap-10">
+        <div className="container flex-row py-8 px-8 gap-10">
           <div
             style={{
               backgroundImage: `url(https://image.tmdb.org/t/p/original/${movieInfo.backdrop_path})`,
               backgroundSize: "cover",
             }}
-            className="flex justify-between h-[80vh] rounded-lg"
+            className="flex justify-between h-[105vh] lg:h-[85vh] rounded-lg"
           >
             <div
               style={{
                 backgroundImage: `url(https://image.tmdb.org/t/p/original/${movieInfo.poster_path})`,
                 backgroundSize: "cover",
               }}
-              className="w-[40vw] rounded-l-lg"
+              className="invisible lg:visible lg:w-[40vw] rounded-l-lg"
             ></div>
-            <div className="w-[60vw] py-32 p-6 bg-gray-800/90 rounded-r-lg">
-              <div className="flex justify-end relative -top-28">
+            <div className="w-[83vw] lg:w-[60vw] py-4 lg:py-32 p-6 bg-gray-800/90 rounded-r-lg">
+              <div className="flex justify-end left-4 relative lg:-top-28 lg:left-0">
                 <ChevronLeftCircle
                   onClick={() => gotToHomePage()}
                   className="cursor-pointer hover:text-gray-400 transition"
                   size={40}
                 />
               </div>
-              <div className="mb-20">
-                <p className="mb-8 text-4xl">{movieInfo.title}</p>
+              <div className="mb-10 lg:mb-20">
+                <p className="mb-8 text-2xl lg:text-4xl">{movieInfo.title}</p>
                 <p className="font-bold text-md mb-2">OVERVIEW:</p>
-                <p>{movieInfo.overview}</p>
+                <p className="text-sm lg:text-base">{movieInfo.overview}</p>
               </div>
               <div className="lg:flex-row md:flex lg:mb-20 md:mb-2 w-[288px] justify-between">
                 <div>
@@ -139,7 +139,7 @@ export default function MovieIdPage() {
                   <p>{formatDate(movieInfo.release_date)}</p>
                 </div>
               </div>
-              <div className="lg:flex-row md:flex lg:mb-20 md:mb-2 w-[500px] justify-between">
+              <div className="lg:flex-row md:flex mb-6 lg:mb-20 w-[500px] justify-between">
                 <div>
                   <p className="font-bold">RUNTIME</p>
                   <p>{movieInfo.runtime} Minutes</p>
