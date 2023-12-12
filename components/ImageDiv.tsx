@@ -17,7 +17,6 @@ const ImageDiv = ({ movie }: ImageDivProps) => {
   const router = useRouter();
 
   function goToSingleMoviePage(movieId: number) {
-    console.log(movieId);
     router.push(`movie/${movieId}`);
   }
 

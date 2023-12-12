@@ -88,11 +88,8 @@ export default function MovieIdPage() {
   }, [params.id]);
 
   function gotToHomePage() {
-    console.log("Ta indo! Confia!");
     router.push("/");
   }
-
-  console.log(movieInfo);
 
   return (
     <div>
@@ -117,7 +114,7 @@ export default function MovieIdPage() {
               className="invisible lg:visible lg:w-[40vw] rounded-l-lg"
             ></div>
             <div className="w-[83vw] lg:w-[60vw] py-4 lg:py-32 p-6 bg-gray-800/90 rounded-r-lg">
-              <div className="flex justify-end left-4 relative lg:-top-28 lg:left-0">
+              <div className="flex justify-end left-2 relative lg:-top-28 lg:left-0">
                 <ChevronLeftCircle
                   onClick={() => gotToHomePage()}
                   className="cursor-pointer hover:text-gray-400 transition"
